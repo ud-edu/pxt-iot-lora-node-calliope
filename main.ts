@@ -210,12 +210,13 @@ namespace IotLoRaNode {
         /**
         * First we need to configure the serial port to use the pins and reset the radio
         */
+        serial.writeString("Test Serial\r\n");
         pins.digitalWritePin(DigitalPin.P0, 1)
         basic.pause(300)
         pins.digitalWritePin(DigitalPin.P0, 0)
-        serial.readLine()
-        serial.readLine()
-        serial.readLine()
+        //serial.readLine()
+        //serial.readLine()
+        //serial.readLine()
 
         //basic.showNumber(0)
 

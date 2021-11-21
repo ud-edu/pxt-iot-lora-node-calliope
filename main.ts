@@ -148,12 +148,13 @@ namespace IotLoRaNode {
         /**
         * First we need to configure the serial port to use the pins and reset the radio
         */
+        serial.writeString("Test Serial\r\n");
         pins.digitalWritePin(DigitalPin.P0, 1) //P16 changed to P0
         basic.pause(300)
         pins.digitalWritePin(DigitalPin.P0, 0)
-        serial.readLine()
-        serial.readLine()
-        serial.readLine()
+        //serial.readLine()
+        //serial.readLine()
+        //serial.readLine()
 
         //basic.showNumber(0)
 
@@ -164,7 +165,7 @@ namespace IotLoRaNode {
         //basic.showNumber(1)
         basic.pause(75)
         //Set to use LoRaWAN Mode
-        serial.writeString("at+mode=0\r\n");
+        serial.writeString("at+set_config=lora:join_mode:0\r\n");
         serial.readLine()
 
         //basic.showNumber(2)

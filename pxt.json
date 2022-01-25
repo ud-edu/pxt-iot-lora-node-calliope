@@ -1,6 +1,6 @@
 {
     "name": "IoTLoRaNode",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -16,10 +16,6 @@
         "test.ts"
     ],
     "public": true,
-    "targetVersions": {
-        "target": "4.0.17",
-        "targetId": "microbit"
-    },
     "supportedTargets": [
         "calliopemini",
         "microbit"

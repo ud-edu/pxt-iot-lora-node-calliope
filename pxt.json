@@ -4,8 +4,7 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "radio": "*",
-        "microphone": "*"
+        "radio": "*"
     },
     "files": [
         "README.md",
@@ -16,10 +15,6 @@
         "test.ts"
     ],
     "public": true,
-    "targetVersions": {
-        "target": "4.0.17",
-        "targetId": "microbit"
-    },
     "supportedTargets": [
         "calliopemini",
         "microbit"

@@ -60,56 +60,6 @@ enum Channels {
     Twenty = 20
 
 }
-enum SpreadingFactors {
-    //% block="Seven"
-    Seven = 5,
-    //% block="Eight"
-    Eight = 4,
-    //% block="Nine"
-    Nine = 3,
-    //% block="Ten"
-    Ten = 2,
-    //% block="Eleven"
-    Eleven = 1,
-    //% block="Twelve"
-    Twelve = 0
-
-}
-
-enum CodingRates {
-    //% block="4/5"
-    FourFive = 5,
-    //% block="4/6"
-    FourSix = 6,
-    //% block="4/7"
-    FourSeven = 7,
-    //% block="4/8"
-    FourEight = 8
-
-}
-
-enum region {
-    //% block="EU868"
-    EU868 = 0,
-    //% block="US915"
-    US915 = 1,
-    //% block="AU915"
-    AU915 = 2,
-    //% block="AS92X"
-    AS92X = 3
-}
-
-enum euFreqs {
-    //% block="868.1"
-    EU8681 = 1,
-    //% block="868.3"
-    EU8683 = 2,
-    //% block="868.5"
-    EU8685 = 4,
-    //% block="ALL"
-    EUALL = 7
-
-}
 
 enum GPIOPins {
     //% block="PA15"
@@ -140,164 +90,41 @@ enum ADCPins {
 namespace IotLoRaNode {
     serial.redirect(SerialPin.C17, SerialPin.C16, BaudRate.BaudRate9600); // C16/C17
     let payload = ""
-    let regionsList: string[] = ["EU868", "US915", "AU915", "AS920"]
 
-    //%blockId="IotLoRaNode_InitialiseRadioABP" block="Initialise LoRa Radio via ABP:|Device Address %deviceaddress|Network Session Key %netswk|App Session Key %appswk|SF %datarate"
+    //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA: App Key %appkey" advanced=true
     //% blockGap=8
-    export function InitialiseRadio(devaddress: string, netswk: string, appswk: string, datarate: SpreadingFactors): void {
-        /**
-        * First we need to configure the serial port to use the pins and reset the radio
-        */
-        serial.writeString("Test Serial\r\n");
-        pins.digitalWritePin(DigitalPin.P0, 1) //P16 changed to P0
-        basic.pause(300)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        //serial.readLine()
-        //serial.readLine()
-        //serial.readLine()
+    export function InitialiseRadioOTAA(appkey: string): void {
 
-        //basic.showNumber(0)
-
-        /**
-         * For this we are only going to use ABP & LoRa WAN Modes for now
-         */
-
-        //basic.showNumber(1)
         basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+set_config=lora:join_mode:0\r\n");
-        serial.readLine()
-
-        //basic.showNumber(2)
-        basic.pause(75)
-        //Set Device Address
-        serial.writeString("at+set_config=dev_addr:" + devaddress + "\r\n");
-        serial.readLine()
-
-        //basic.showNumber(3)
-        basic.pause(75)
-        //Set the network session key
-        serial.writeString("at+set_config=nwks_key:" + netswk + "\r\n");
-        serial.readLine()
-
-        //basic.showNumber(4)
-        basic.pause(75)
-        //Set the application session key
-        serial.writeString("at+set_config=apps_key:" + appswk + "\r\n");
-        serial.readLine()
-
-        //basic.showNumber(5)
-        basic.pause(75)
-        //Set the data rate
-        serial.writeString("at+set_config=dr:" + datarate + "\r\n");
-        serial.readLine()
-
-        //basic.showNumber(6)
-        basic.pause(75)
-        //"Join" the LoRaWAN Network in ABP Mode
-        serial.writeString("at+join=abp\r\n");
-        serial.readLine()
-
-        //Display on the screen that LoRa is ready.
-        basic.showString("LoRa Ready")
-
-
-    }
-
-    //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA:|Device Eui %deveui|App EUI %appeui|App Key %appkey" advanced=true
-    //% blockGap=8
-    export function InitialiseRadioOTAA(deveui: string, appeui: string, appkey: string): void {
-        /**
-        * First we need to configure the serial port to use the pins and reset the radio
-        */
-        //serial.writeString("Test Serial\r\n");
-        //pins.digitalWritePin(DigitalPin.P0, 1)
-        //basic.pause(300)
-        //pins.digitalWritePin(DigitalPin.P0, 0)
-        //serial.readLine()
-        //serial.readLine()
-        //serial.readLine()
-
-        //basic.showNumber(0)
-
-        /**
-         * For this we are only going to use ABP & LoRa WAN Modes for now
-         */
-
-        //basic.showNumber(1)
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
+        //Set to use LoRaWAN Mode 
         serial.writeString("AT+MODE=LWOTAA\r\n");
         serial.readLine()
 
-        //basic.showNumber(1)
         basic.pause(75)
         //Set to use LoRaWAN Mode
         serial.writeString("AT+DR=EU868\r\n");
         serial.readLine()
 
-        //basic.showNumber(1)
         basic.pause(75)
         //Set to use LoRaWAN Mode
         serial.writeString("AT+CH=NUM,0-2\r\n");
         serial.readLine()
 
-        //basic.showNumber(2)
-        //basic.pause(75)
-        //Set Device Address
-        //serial.writeString("at+set_config=lora:dev_eui:" + deveui + "\r\n");
-        //serial.readLine()
-
-        //basic.showNumber(3)
-        //basic.pause(75)
-        //Set the network session key
-        //serial.writeString("at+set_config=lora:app_eui:" + appeui + "\r\n");
-        //serial.readLine()
-
-        //basic.showNumber(4)
         basic.pause(75)
         //Set the application session key
         serial.writeString("AT+KEY=APPKEY," + appkey + "\r\n");
         serial.readLine()
 
-        //basic.showNumber(4)
         basic.pause(75)
         //Set the application session key
         serial.writeString("AT+CLASS=C\r\n");
         serial.readLine()
 
-        //basic.showNumber(4)
         basic.pause(75)
         //Set the application session key
         serial.writeString("AT+PORT=8\r\n");
         serial.readLine()
 
-        //basic.showNumber(4)
-        //basic.pause(75)
-        //Set the application session key
-        //serial.writeString("at+set_config=lora:ch_mask:10:0\r\n");
-        //serial.readLine()
-
-        //basic.showNumber(4)
-        //basic.pause(75)
-        //Set the application session key
-        //serial.writeString("at+set_config=lora:ch_mask:11:0\r\n");
-        //serial.readLine()
-
-        //basic.showNumber(4)
-        //basic.pause(75)
-        //Set the application session key
-        //serial.writeString("at+set_config=lora:ch_mask:12:0\r\n");
-        //serial.readLine()
-
-
-        /*
-        basic.pause(75)
-        //Set the data rate
-        serial.writeString("at+set_config=dr:0\r\n");
-        serial.readLine()
-        */
-        //basic.showNumber(6)
         basic.pause(75)
         //"Join" the LoRaWAN Network in ABP Mode
         serial.writeString("AT+JOIN\r\n");
@@ -447,253 +274,9 @@ namespace IotLoRaNode {
         serial.writeString("AT+CMSGHEX=" + payload + "\r\n");
         serial.readUntil(serial.delimiters(Delimiters.NewLine))
         basic.pause(100)
-        //serial.readUntil(serial.delimiters(Delimiters.NewLine))
-        //basic.pause(100)
         payload = ""
     }
-    //%blockId="IotLoRaNode_SetRegion" block="Set LoRa Region: %regionVal"
-    export function SetRegion(regionVal: region): void {
-        /**
-         * SetRegion
-         */
-
-        basic.showIcon(IconNames.SmallDiamond)
-        pins.digitalWritePin(DigitalPin.P0, 1)
-        basic.pause(300)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        //basic.showIcon(IconNames.SmallDiamond)
-        serial.readLine()
-        serial.readLine()
-        serial.readLine()
-        basic.pause(75)
-
-        serial.writeString("at+band=" + regionsList[regionVal] + "\r\n");
-        serial.readUntil(serial.delimiters(Delimiters.NewLine))
-        basic.showIcon(IconNames.Diamond)
-        pins.digitalWritePin(DigitalPin.P0, 1)
-        basic.pause(300)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        serial.readLine()
-        serial.readLine()
-        serial.readLine()
-        basic.showIcon(IconNames.Yes)
-        //basic.showNumber(1)
-        if (regionsList[regionVal] == "US915") {
-            serial.writeString("at+set_config=ch_mask:0,FF00\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:1,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:2,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:3,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:4,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-        }
-
-        else if (regionsList[regionVal] == "AU915") {
-            serial.writeString("at+set_config=ch_mask:0,FF00\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:1,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:2,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:3,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-            serial.writeString("at+set_config=ch_mask:4,0000\r\n");
-            serial.readLine()
-            basic.pause(75)
-        }
-        //basic.showNumber(2)
-    }
-
-    //%blockId="IotLoRaNode_SleepMode" block="Sleep Mode" advanced=true
-    export function loraSleepMode(): void {
-        /**
-         * Sleep Mode
-         */
-
-        serial.writeString("at+sleep\r\n");
-        serial.readUntil(serial.delimiters(Delimiters.NewLine))
-    }
-    //%blockId="IotLoRaNode_WakeUp" block="Wake from Sleep" advanced=true 
-    export function loraWakeUp(): void {
-        /**
-         * Sleep Mode
-         */
-
-        //serial.writeString("");
-        serial.readUntil(serial.delimiters(Delimiters.NewLine))
-    }
-
-    //%blockId="IotLoRaNode_GPIOWrite" block="Write GPIO" block="Write GPIO Pin Digital:|Pin Number %pinNum|State %state"
-    export function loraGPIOWrite(pinNum: GPIOPins, state: boolean): void {
-        /**
-         * GPIO Write
-         */
-
-        let gpioVal = state ? 1 : 0;
-        serial.writeString("at+gpio=" + pinNum + "," + gpioVal + "\r\n");
-        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
-    }
-
-    //%blockId="IotLoRaNode_GPIORead" block="Read GPIO Digital" block="Read GPIO Pin Digital:|Pin Number %pinNum"
-    export function loraGPIORead(pinNum: GPIOPins): boolean {
-        /**
-         * GPIO Read
-         */
-        let boolVal = false;
-        serial.writeString("at+gpio=" + pinNum + "\r\n");
-        let value = parseInt(serial.readUntil(serial.delimiters(Delimiters.NewLine)).charAt(2))
-        let gpioVal = value ? true : false;
-        return gpioVal;
-    }
-
-    //%blockId="IotLoRaNode_GPIOAdc" block="Read GPIO ADC" advanced=true block="Read GPIO Pin Analogue:|Pin Number %pinNum"
-    export function loraGPIOAdc(pinNum: ADCPins): number {
-        /**
-         * GPIO ADC
-         */
-
-        serial.writeString("at+rd_adc=" + pinNum + "\r\n");
-
-        let value = serial.readString()
-        let value2 = value.substr(2, 4)
-        //basic.showString(value2)
-        //basic.showNumber(parseInt(value2))
-
-
-        //basic.showIcon(IconNames.Yes)
-        //basic.pause(100)
-        //serial.redirectToUSB()
-        //serial.writeString(value)
-        //serial.redirect(SerialPin.P14, SerialPin.P15, BaudRate.BaudRate115200);
-
-        return parseInt(value2);
-    }
-
-    //%blockId="IotLoRaNode_InitialiseRadioP2P" block="Initialise LoRa Radio for P2P" advanced=true
-    //% blockGap=8
-    export function InitialiseRadioP2P(): void {
-        /**
-        * First we need to configure the serial port to use the pins and reset the radio
-        */
-        pins.digitalWritePin(DigitalPin.P0, 1)
-        basic.pause(300)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        serial.readLine()
-        serial.readLine()
-        serial.readLine()
-
-        //basic.showNumber(0)
-
-        /**
-         * For this we are only going to use ABP & LoRa WAN Modes for now
-         */
-
-        //basic.showNumber(1)
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+mode=1\r\n");
-        serial.readLine()
-        //Display on the screen that LoRa is ready.
-        basic.showString("P2P Ready")
-
-
-    }
-
-    //%blockId="IotLoRaNode_rfconfig" advanced=true block="Configure LoRa P2P:|Frequency %frequency|Spreading Factor %spreadingfactor|Bandwidth %bandwidth|Coding Rate %codingRate|Preamlen %preamlen|Transmission Pwr %power"
-    //% blockGap=8
-    export function rfconfig(frequency: number, spreadingfactor: SpreadingFactors, bandwidth: number, codingRate: CodingRates, preamlen: number, power: number): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+rf_config=" + frequency + "," + spreadingfactor + "," + bandwidth + "," + codingRate + "," + preamlen + "," + power + "\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_txc" advanced=true block="LoRa P2P Continous transmit:|Count %count|Interval %interval|Data %data"
-    //% blockGap=8
-    export function txc(count: number, interval: number, data: string): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+txc=" + count + "," + interval + "," + data + "\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_rxc" advanced=true block="LoRa P2P Continous Receive"
-    export function rxc(): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+rxc\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_txstop" advanced=true block="Stop P2P TX"
-    //% blockGap=8
-    export function txstop(): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+txstop\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_rxstop" advanced=true block="Stop P2P RX"
-    //% blockGap=8
-    export function rxstop(): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+rxstop\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_spreadingFactor" advanced=true block="Set SF: %spreadingFactor"
-    //% blockGap=8
-    export function IotLoRaNode_spreadingFactor(spreadingfactor: SpreadingFactors): void {
-
-        basic.pause(75)
-        //Set to use LoRaWAN Mode
-        serial.writeString("at+set_config=dr:" + spreadingfactor + "\r\n");
-        serial.readLine()
-
-    }
-
-    //%blockId="IotLoRaNode_chmask_eu" advanced=true block="EU Set Freq: %euFreq"
-    //% blockGap=8
-    export function IotLoRaNode_chmask_eu(eufreq: euFreqs): void {
-
-        basic.pause(75)
-        //Set to use single channel gateway
-
-        serial.writeString("at+set_config=ch_mask:0,000" + eufreq.toString() + "\r\n");
-        serial.readLine()
-
-    }
-
-
 
     //End2
-
-
-
-
 
 }

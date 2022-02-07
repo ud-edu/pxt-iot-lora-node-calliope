@@ -2,7 +2,7 @@
   "IotLoRaNode.AnalogueValue|block": "Füge analogen Wert hinzu: %value auf Kanal: %chanNum",
   "IotLoRaNode.DigitalValue|block": "Füge digitalen Wert hinzu: %value auf Kanal: %chanNum",
   "IotLoRaNode.HumidityValue|block": "Füge Luftfeuchtigkeit hinzu: %humidityVal auf Kanal: %chanNum",
-  "IotLoRaNode.InitialiseRadioOTAA|block": "Initialisiere LoRa Radio OTAA: appkey %appkey",
+  "IotLoRaNode.InitialiseRadioOTAA|block": "Initialisiere LoRa Radio OTAA: deveui %deveui|appkey %appkey",
   "IotLoRaNode.LightValue|block": "Füge Lichtstärke hinzu: %lightVal auf Kanal: %chanNum",
   "IotLoRaNode.TemperatureValue|block": "Füge Temperatur hinzu: %temperatureVal auf Kanal: %chanNum",
   "IotLoRaNode.BarometerValue|block": "Füge Luftdruck hinzu: %barometerVal auf Kanal: %chanNum",

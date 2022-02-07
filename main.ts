@@ -91,9 +91,9 @@ namespace IotLoRaNode {
     serial.redirect(SerialPin.C17, SerialPin.C16, BaudRate.BaudRate9600); // C16/C17
     let payload = ""
 
-    //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA: App Key %appkey" advanced=true
+        //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA:|Device Eui %deveui|App Key %appkey" advanced=true
     //% blockGap=8
-    export function InitialiseRadioOTAA(appkey: string): void {
+    export function InitialiseRadioOTAA(deveui: string, appkey: string): void {
 
         basic.pause(75)
         //Set to use LoRaWAN Mode 
@@ -113,6 +113,11 @@ namespace IotLoRaNode {
         basic.pause(75)
         //Set the application session key
         serial.writeString("AT+KEY=APPKEY," + appkey + "\r\n");
+        serial.readLine()
+
+        basic.pause(75)
+        //Set the device extended unique identifier
+        serial.writeString("AT+ID=DEVEUI," + deveui + "\r\n");
         serial.readLine()
 
         basic.pause(75)

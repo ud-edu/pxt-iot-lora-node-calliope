@@ -1,5 +1,5 @@
 {
-  "IotLoRaNode.AssembleMeasuredValue|block": "Füge Wert für %quantity hinzu: %value auf Kanal: %chanNum", 
+  "IotLoRaNode.AssembleMeasuredValue|block": "Füge %quantity Wert hinzu: %value auf Kanal: %chanNum", 
   "IotLoRaNode.AssembleBoolValue|block": "Füge %sensor hinzu: %value auf Kanal: %chanNum",
   "IotLoRaNode.InitialiseRadioOTAA|block": "Initialisiere LoRa Radio OTAA: deveui %deveui|appkey %appkey",
   "IotLoRaNode.AccelorometerValue|block": "Füge Beschleunigunswerte hinzu|X: %accelValX Y: %accelValY Z: %accelValZ auf Kanal: %hanNum",

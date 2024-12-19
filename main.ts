@@ -46,7 +46,7 @@ enum Channels {
     Thirteen = 13,
     //% block="Fourteen"
     Fourteen = 14,
-    //% block="fifteen"
+    //% block="Fifteen"
     Fifteen = 15,
     //% block="Sixteen"
     Sixteen = 16,
@@ -61,27 +61,26 @@ enum Channels {
 
 }
 
-enum GPIOPins {
-    //% block="PA15"
-    PA15 = 14,
-    //% block="PB3"
-    PB3 = 15,
-    //% block="PB5"
-    PB5 = 16,
-    //% block="PB8"
-    PB8 = 18,
-    //% block="PB9"
-    PB9 = 19,
-    //% block="PA2"
-    PA2 = 20
-
+enum MeasuredValue {
+    //% block="Analogue"
+    Analogue,
+    //% block="Temperature"
+    Temperature,
+    //% block="Barometer"
+    Barometer,
+    //% block="Humidity"
+    Humidity,
+    //% block="Light"
+    Light
 }
 
-enum ADCPins {
-    //% block="PA2"
-    PA2 = 20
-
+enum BoolValue {
+    //% block="Digital Value"
+    digital,
+    //% block="Presence Sensor"
+    presence
 }
+
 
 
 //% weight=10 color=#8bc34a icon="\uf1eb"
@@ -91,7 +90,8 @@ namespace IotLoRaNode {
     serial.redirect(SerialPin.C17, SerialPin.C16, BaudRate.BaudRate9600); // C16/C17
     let payload = ""
 
-        //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA:|Device Eui %deveui|App Key %appkey" advanced=true
+
+    //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA:|Device Eui %deveui|App Key %appkey"
     //% blockGap=8
     export function InitialiseRadioOTAA(deveui: string, appkey: string): void {
 
@@ -137,88 +137,69 @@ namespace IotLoRaNode {
 
         //Display on the screen that LoRa is ready.
         basic.showString("LoRa Ready")
+    }
 
+    //%blockId="IotLoRaNode_AssembleMeasuredValue" block="Add %quantity Value: %value on channel: %chanNum" value.min=0 value.max=254
+    export function AssembleMeasuredValue(quantity: MeasuredValue, value: number, chanNum: Channels): void {
+        /**
+         * Add measured value
+         */
+        let buffer: number;
+        let format: NumberFormat;
+        let faktor: number;
+        let cn: string;
+        switch (quantity) {
+            case (MeasuredValue.Light):
+                buffer = 2;
+                format = NumberFormat.Int16BE;
+                faktor = 1;
+                cn = "65";
+                break;
+            case (MeasuredValue.Humidity):
+                buffer = 1;
+                format = NumberFormat.UInt8BE;
+                faktor = 2;
+                cn = "68";
+                break;
+            case (MeasuredValue.Barometer):
+                buffer = 2;
+                format = NumberFormat.Int16BE;
+                faktor = 10;
+                cn = "73";
+                break;
+            case (MeasuredValue.Temperature):
+                buffer = 2;
+                format = NumberFormat.Int16BE;
+                faktor = 10;
+                cn = "67";
+                break;
+            default: // Analogue
+                buffer = 2;
+                format = NumberFormat.Int16BE;
+                faktor = 100;
+                cn = "02"; 
+        }
 
+        let bufr = pins.createBuffer(buffer);
+        bufr.setNumber(format, 0, (value * faktor));
+        payload = payload + "0" + chanNum + cn + bufr.toHex();
     }
 
 
-
-    //%blockId="IotLoRaNode_DigitalValue"
-    //%block="Add Digital Value: %value on channel: %chanNum"
-    export function DigitalValue(value: boolean, chanNum: Channels): void {
+    //%blockId="IotLoRaNode_AssembleBoolValue" block="Add %sensor: %value on channel: %chanNum"
+    export function AssembleBoolValue(sensor: BoolValue, value: boolean, chanNum: Channels): void {
         /**
-         * Add digital value
+         * Add boolean value
          */
         let intVal = value ? 1 : 0;
-        payload = payload + "0" + chanNum + "000" + intVal;
-
+        let cn = "000";
+        if (sensor == BoolValue.presence) { cn = "660"; }
+        payload = payload + "0" + chanNum + cn + intVal;
     }
-    //%blockId="IotLoRaNode_AnalogueValue" block="Add Analogue Value: %value on channel: %chanNum"
-    //% value.min=0 value.max=254
-    export function AnalogueValue(value: number, chanNum: Channels): void {
-        /**
-         * Add analogue value
-         */
-        let bufr = pins.createBuffer(2);
-        bufr.setNumber(NumberFormat.Int16BE, 0, (value * 100))
-
-        payload = payload + "0" + chanNum + "02" + bufr.toHex();
+    
 
 
-    }
-
-    //%blockId="IotLoRaNode_temperatureValue" block="Add Temperature Value: %temperatureVal to channel: %chanNum"
-    export function TemperatureValue(temperatureVal: number, chanNum: Channels): void {
-        /**
-         * Add temperature value
-         */
-        let bufr = pins.createBuffer(2);
-        bufr.setNumber(NumberFormat.Int16BE, 0, (temperatureVal * 10))
-
-        payload = payload + "0" + chanNum + "67" + bufr.toHex();
-
-
-    }
-
-    //%blockId="IotLoRaNode_barometerValue" block="Add Barometer Value: %barometerVal to channel: %chanNum"
-    export function BarometerValue(barometerVal: number, chanNum: Channels): void {
-        /**
-         * Add barometer value
-         */
-        let bufr = pins.createBuffer(2);
-        bufr.setNumber(NumberFormat.Int16BE, 0, (barometerVal * 10))
-
-        payload = payload + "0" + chanNum + "73" + bufr.toHex();
-
-
-    }
-
-    //%blockId="IotLoRaNode_PresenceSensor"
-    //%block="Add Presence Sensor: %value on channel: %chanNum"
-    export function PresenceSensor(value: boolean, chanNum: Channels): void {
-        /**
-         * Add presence value
-         */
-        let intVal = value ? 1 : 0;
-        payload = payload + "0" + chanNum + "660" + intVal;
-
-    }
-
-    //%blockId="IotLoRaNode_HumidityValue" block="Add Humidity Value: %humidityVal to channel: %chanNum"
-    //%advanced=true
-    export function HumidityValue(humidityVal: number, chanNum: Channels): void {
-        /**
-         * Add humidity value
-         */
-        let bufr = pins.createBuffer(1);
-        bufr.setNumber(NumberFormat.UInt8BE, 0, (humidityVal * 2))
-
-        payload = payload + "0" + chanNum + "68" + bufr.toHex();
-
-
-    }
-
-    //%blockId="IotLoRaNode_AccelorometerValue" block="Add Accelerometer Value - X: %accelValX , Y: %accelValY , Z: %accelValZ ,  to channel: %hanNum"
+    //%blockId="IotLoRaNode_AccelorometerValue" block="Add Accelerometer Value|X: %accelValX Y: %accelValY Z: %accelValZ to channel: %hanNum" advanced=true
     export function AccelorometerValue(accelValX: number, accelValY: number, accelValZ: number, chanNum: Channels): void {
         /**
          * Add accelorometer
@@ -233,21 +214,7 @@ namespace IotLoRaNode {
     }
 
 
-    //%blockId="IotLoRaNode_LightValue" block="Add light Value: %lightVal on channel: %chanNum"
-    export function LightValue(lightVal: number, chanNum: Channels): void {
-        /**
-         * Add light value
-         */
-        let bufr = pins.createBuffer(2);
-        bufr.setNumber(NumberFormat.Int16BE, 0, (lightVal))
-
-        payload = payload + "0" + chanNum + "65" + bufr.toHex();
-
-    }
-
-
-
-    //%blockId="IotLoRaNode_GPS" block="Add GPS Value - Latitude: %latitude Longitude %longitude Altitude %altitude on channel: %chanNum"
+    //%blockId="IotLoRaNode_GPS" block="Add GPS Value|Latitude: %latitude Longitude %longitude Altitude %altitude on channel: %chanNum" advanced=true
     //% blockGap=8
     export function GPS(latitude: number, longitude: number, altitude: number, chanNum: Channels): void {
         /**
@@ -265,9 +232,6 @@ namespace IotLoRaNode {
         let altBuf2 = altBuf.slice(1, 4);
         payload = "" + payload + "0" + chanNum + "88" + lonBuf2.toHex() + latBuf2.toHex() + altBuf2.toHex()
 
-
-
-
     }
 
     //%blockId="IotLoRaNode_TransmitMessage" block="Transmit LoRa Data"
@@ -281,7 +245,5 @@ namespace IotLoRaNode {
         basic.pause(100)
         payload = ""
     }
-
-    //End2
 
 }

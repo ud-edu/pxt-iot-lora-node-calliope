@@ -32,10 +32,10 @@ Für die Schüler sieht das dann so aus:
 * füge **https://github.com/chbmeyer/pxt-iot-lora-node-calliope** ein und klicke auf Importieren
 
 #### 2. Code kopieren und einfügen
-* in der Datei modulauswahl.ts habe ich den kompletten Code (natürlich ohne DevEUIs / AppKeys) hinterlegt
+* in der Datei [modulauswahl.ts](https://github.com/chbmeyer/pxt-iot-lora-node-calliope/blob/master/modulauswahl.ts) habe ich den kompletten Code (natürlich ohne DevEUIs / AppKeys) hinterlegt
 * ersetzen Sie damit den in MakeCode geöffneten Code.
 * passen Sie im **enmu Modul** (ab Zeile 85) die Namen der Hardware-Module an (, z.B. die selbst vergebenen Namen der "end devices" von TTN). Sie können auch die Anzahl der Einträge einfach selbst ändern und z.B. nicht benötigte Einträge löschen.
-* tragen Sie nun für jedes dieser Module ebenfalls den von Ihnen gewählten Namen (ab Zeile 106, hinter **case**) und die passenden **DevEUI** und **AppKey** in den Funktionsuafruf ein. Das sieht dann z.B. so aus: InitialiseRadioOTAA("70B3XXXXXXXXAB34", "D0D9XXXXXXXXXXXXXXXXXXXXXXXXD528")
+* tragen Sie nun für jedes dieser Module ebenfalls den von Ihnen gewählten **Namen** (sofern geändert) und die passenden **DevEUI** und **AppKey** in den Funktionsuafruf ein. Sie finden die Stelle im Programmcode etwa 12 Zeile unter dem letzten Eintrag des obigen enums. Mit den verschiedenen **case** Unterscheidungen können Sie Ihre Module einzeln eintragen (und den Rest ergänzen bzw. löschen).
 
 #### 3. Datei speichern
 * tun Sie nun so, als ob Sie das Projekt nun wieder auf github speichern wollten (was Sie mangels meiner Zugangsdaten gar nicht können), indem Sie im unteren Bereich des Make-Code-Browserfensters auf das Github-Logo und den Pfeil nach oben klicken.

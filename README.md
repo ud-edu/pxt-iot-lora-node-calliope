@@ -26,18 +26,18 @@ Für die Schüler sieht das dann so aus:
 * Sie benötigen dafür bereits existierende DevEUIs und AppKeys von [TheThingsNetwork](https://eu1.cloud.thethings.network/console)
 * falls Sie die noch nicht haben, starten Sie bitte zuerst auf der [Lernstrecke zu LoraWAN von inf-schule](https://dev.inf-schule.de/informatiksysteme/calliope/IoT/lorawan/lernstrecke).
 
-#### 1. Dieses Projekt bearbeiten in MakeCode bearbeiten
+#### 1. Dieses Projekt in MakeCode importieren und bearbeiten
 * öffne [https://makecode.calliope.cc](https://makecode.calliope.cc)
 * klicke auf **Importieren** und dann auf **Importiere URL**
 * füge **https://github.com/chbmeyer/pxt-iot-lora-node-calliope** ein und klicke auf Importieren
 
-#### 2. Code kopieren und einfügen
+#### 2. Code kopieren, einfügen und anpassen
 * in der Datei [modulauswahl.ts](https://github.com/chbmeyer/pxt-iot-lora-node-calliope/blob/master/modulauswahl.ts) habe ich den kompletten Code (natürlich ohne DevEUIs / AppKeys) hinterlegt
 * ersetzen Sie damit den in MakeCode geöffneten Code.
 * passen Sie im **enmu Modul** (ab Zeile 85) die Namen der Hardware-Module an (, z.B. die selbst vergebenen Namen der "end devices" von TTN). Sie können auch die Anzahl der Einträge einfach selbst ändern und z.B. nicht benötigte Einträge löschen.
 * tragen Sie nun für jedes dieser Module ebenfalls den von Ihnen gewählten **Namen** (sofern geändert) und die passenden **DevEUI** und **AppKey** in den Funktionsuafruf ein. Sie finden die Stelle im Programmcode etwa 12 Zeile unter dem letzten Eintrag des obigen enums. Mit den verschiedenen **case** Unterscheidungen können Sie Ihre Module einzeln eintragen (und den Rest ergänzen bzw. löschen).
 
-#### 3. Datei speichern
+#### 3. Datei speichern und als eigenes Plugin verwenden
 * tun Sie nun so, als ob Sie das Projekt nun wieder auf github speichern wollten (was Sie mangels meiner Zugangsdaten gar nicht können), indem Sie im unteren Bereich des Make-Code-Browserfensters auf das Github-Logo und den Pfeil nach oben klicken.
 * srollen Sie auf der folgenden Seite ganz nach unten. Im "Bereich für Erweiterungen" können Sie zunächst Ihre geänderte "**Erweiterung testen**", und wenn alles funktioniert "**Für den Offline-Gebrauch speichern**".
 * Fertig. Diese Datei müssen Sie nun (z.B. durch einen Moodlekurs) an Ihre Schüler verteilen. Zusätzlich habe ich an die Hardware-Module einen **individuellen Anhänger** mit dem Modulnamen, aber auch mit DevEUI und AppKey angebracht.

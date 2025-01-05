@@ -81,14 +81,40 @@ enum BoolValue {
     presence
 }
 
-
+enum Modul {
+    wio_e5_01,
+    wio_e5_02,
+    wio_e5_03,
+    wio_e5_04,
+    wio_e5_05
+}
 
 //% weight=10 color=#8bc34a icon="\uf1eb"
-
-
 namespace IotLoRaNode {
     serial.redirect(SerialPin.C17, SerialPin.C16, BaudRate.BaudRate9600); // C16/C17
     let payload = ""
+
+    //%blockId="IotLoRaNode_eigene_Hardware_Module"
+    //%block="Initialisiere LoRaWAN-Modul: %modul"
+    export function InitModule(modul: Modul){
+        switch(modul) {
+            case Modul.wio_e5_01:
+                InitialiseRadioOTAA("bitte DevEUI1 eintragen","hier bitte Appkey1 eintragen");
+                break;
+            case Modul.wio_e5_02:
+                InitialiseRadioOTAA("DevEUI2", "Appkey2");
+                break;
+            case Modul.wio_e5_03:
+                InitialiseRadioOTAA("...", "...");
+                break;
+            case Modul.wio_e5_04:
+                InitialiseRadioOTAA("", "");
+                break;
+            case Modul.wio_e5_05:
+                InitialiseRadioOTAA("", "");
+                break;
+        }
+    }
 
 
     //%blockId="IotLoRaNode_InitialiseRadioOTAA" block="Initialise LoRa Radio via OTAA:|Device Eui %deveui|App Key %appkey"

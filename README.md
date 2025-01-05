@@ -1,7 +1,11 @@
 ## Hinweis
-Diese Seite ist eine Kopie von [https://mkleinsb.github.io/pxt-iot-lora-node-calliope/](https://mkleinsb.github.io/pxt-iot-lora-node-calliope/).
+Diese Seite ist eine Kopie von [https://mkleinsb.github.io/pxt-iot-lora-node-calliope/](https://mkleinsb.github.io/pxt-iot-lora-node-calliope/)
+(via [https://github.com/ud-edu/pxt-iot-lora-node-calliope](https://github.com/ud-edu/pxt-iot-lora-node-calliope).)
 
-Die Blöcke sind etwas übersichtlicher gestaltet, um Schülern der [Realschule plus und FOS im Einrich](https://rs-einrich.de) die Arbeit zu erleichtern.
+Ich habe die Blöcke etwas übersichtlicher gestaltet, um SchülerInnen der [Realschule plus und FOS im Einrich](https://rs-einrich.de) die Arbeit zu erleichtern.
+
+![grafik](https://github.com/user-attachments/assets/cdd2ce59-44e0-4419-926c-cbd264fdaae3)
+
 
 ## Als Erweiterung verwenden
 Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
@@ -12,8 +16,8 @@ Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
 * nach **https://github.com/chbmeyer/pxt-iot-lora-node-calliope** suchen und importieren
 
 ## Eigene LoRaWAN-Hardwaremodule für MakeCode vorkonfigurieren
-Wenn Sie als Lehrer Ihren Schülern den Einstieg erleichtern wollen, dann können Sie in diesem Plugin einmalig Ihren Modulen eine DevEUI und einen AppKey hinterlegen, und diese Modifikation als **schulinterne Erweiterung** (HEX-Datei) an Ihre Schüler weitergeben. Das erspart das umständliche hantieren mit dem Verwalten und Eingeben der langen Zahlenkeys.
-Für die Schüler sieht das dann so aus:
+Wenn Sie als LehrerIn Ihren SchülerInnen den Einstieg erleichtern wollen, dann können Sie in diesem Plugin einmalig Ihren Modulen eine DevEUI und einen AppKey hinterlegen, und diese Modifikation als **schulinterne Erweiterung** (HEX-Datei) an Ihre SchülerInnen weitergeben. Das erspart das umständliche hantieren mit dem Verwalten und Eingeben der langen Zahlenkeys.
+Für die SchülerInnen sieht das dann so aus:
 
 ![grafik](https://github.com/user-attachments/assets/5b49d557-e684-4e1d-8849-8395314480eb)
 
@@ -40,4 +44,4 @@ Für die Schüler sieht das dann so aus:
 #### 3. Datei speichern und als eigenes Plugin verwenden
 * tun Sie nun so, als ob Sie das Projekt nun wieder auf github speichern wollten (was Sie mangels meiner Zugangsdaten gar nicht können), indem Sie im unteren Bereich des Make-Code-Browserfensters auf das Github-Logo und den Pfeil nach oben klicken.
 * srollen Sie auf der folgenden Seite ganz nach unten. Im "Bereich für Erweiterungen" können Sie zunächst Ihre geänderte "**Erweiterung testen**", und wenn alles funktioniert "**Für den Offline-Gebrauch speichern**".
-* Fertig. Diese Datei müssen Sie nun (z.B. durch einen Moodlekurs) an Ihre Schüler verteilen. Zusätzlich habe ich an die Hardware-Module einen **individuellen Anhänger** mit dem Modulnamen, aber auch mit DevEUI und AppKey angebracht.
+* Fertig. Diese Datei müssen Sie nun (z.B. durch einen Moodlekurs) an Ihre SchülerInnen verteilen. Zusätzlich habe ich an die Hardware-Module einen **individuellen Anhänger** mit dem Modulnamen, aber auch mit DevEUI und AppKey angebracht.

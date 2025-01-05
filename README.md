@@ -4,8 +4,7 @@ Diese Seite ist eine Kopie von [https://mkleinsb.github.io/pxt-iot-lora-node-cal
 
 Ich habe die Blöcke etwas übersichtlicher gestaltet, um SchülerInnen der [Realschule plus und FOS im Einrich](https://rs-einrich.de) die Arbeit zu erleichtern.
 
-![grafik](https://github.com/user-attachments/assets/cdd2ce59-44e0-4419-926c-cbd264fdaae3)
-
+![grafik](https://github.com/user-attachments/assets/1b642f86-7448-41ed-a39a-4aed8be5a6f3)
 
 ## Als Erweiterung verwenden
 Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
